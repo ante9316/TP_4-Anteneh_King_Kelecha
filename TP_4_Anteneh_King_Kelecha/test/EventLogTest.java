@@ -72,20 +72,4 @@ public class EventLogTest
 		// e1.createMarkHoldLog(null, h2, p1);
 	}
 
-	@Test
-	public void testRemoveHold()
-	{
-		// EventLog e1 = new EventLog();
-		// Copy c1 = new Copy("C1", "Testing");
-		// Copy c2 = new Copy("C2", "Testing 2");
-		// Hold h2 = new Hold("bad book", "Damage");
-		// Patron p1 = new Patron("P1", "Tom");
-		// CheckInOutController newcontroller = new CheckInOutController();
-		//
-		// newcontroller.markHold(c1, p1, "damage", "none");
-		//
-		// // newcontroller.removeHold(c1, "damage");
-		// assertTrue(!FakeDB.getHoldStore().isEmpty());
-
-	}
 }

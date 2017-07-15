@@ -20,7 +20,7 @@ public class CheckInOutControllerTest
 		Patron p2 = new Patron("P2", "Tom");
 		Copy c1 = new Copy("C1", "Testing");
 		Copy c2 = new Copy("C2", "Testing 2");
-		LocalDateTime t1 = LocalDateTime.now().plusDays(120);
+		// LocalDateTime t1 = LocalDateTime.now().plusDays(120);
 
 		// check out 1
 		controller.checkOut(p1, c1);

@@ -247,38 +247,51 @@ public class CheckInOutController
 
 	public boolean isFeePaid(Patron activePatron)
 	{
-		// code to automatically call payment whenever a worker try to remove a
-		// hold
-		FakeDB.getFineStore().get(activePatron).payment(activePatron);
 
 		// check if fee is paid
-		if (FakeDB.getFineStore().get(activePatron).fee == 0)
+		if (FakeDB.getHoldStore() != null && !FakeDB.getHoldStore().isEmpty())
+		{
+			// code to automatically call payment whenever a worker try to
+			// remove a
+			// hold
+			FakeDB.getFineStore().get(activePatron).payment(activePatron);
+			if (FakeDB.getFineStore().get(activePatron).fee == 0)
+			{
+
+				return true;
+			}
+
+		}
+
+		return false;
+
+	}
+
+	public boolean removeHold(Copy activeCopy, String holdType)
+	{
+		// check if there is a hold record
+		if (FakeDB.getHoldStore() != null && !FakeDB.getHoldStore().isEmpty())
 		{
 
+			for (int i = 0; i < FakeDB.getHoldStore().size(); i++)
+			{
+				if (FakeDB.getHoldRecord(activeCopy).get(i).getHoldType().equalsIgnoreCase(holdType))
+				{
+					FakeDB.getHoldStore().remove(activeCopy);
+					break;
+
+				}
+
+			}
+
+			// create event log record
+			newEvent.createRemoveHoldLog(activeCopy);
 			return true;
 		}
 		else
 		{
 			return false;
 		}
-
-	}
-
-	public void removeHold(Copy activeCopy, String holdType)
-	{
-		for (int i = 0; i < FakeDB.getHoldStore().size(); i++)
-		{
-			if (FakeDB.getHoldRecord(activeCopy).get(i).getHoldType().equalsIgnoreCase(holdType))
-			{
-				FakeDB.getHoldStore().remove(activeCopy);
-				break;
-
-			}
-
-		}
-
-		// create event log record
-		newEvent.createRemoveHoldLog(activeCopy);
 	}
 
 	public boolean printNotice()

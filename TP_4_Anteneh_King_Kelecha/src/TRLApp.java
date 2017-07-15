@@ -142,7 +142,14 @@ public class TRLApp
 			}
 			else if (userInput.equals("7"))
 			{
-				trlApp.controller.printNotice();
+				if (trlApp.controller.printNotice())
+				{
+					StdOut.println("Your OverDue Notice has been generated and saved locally");
+				}
+				else
+				{
+					StdOut.println("There is no overdue record to generate notice for");
+				}
 			}
 			else if (userInput.equals("0"))
 			{
@@ -184,12 +191,19 @@ public class TRLApp
 		// Check if the fee is paid and remove hold record
 		if (trlApp.controller.isFeePaid(activePatron))
 		{
-			trlApp.controller.removeHold(activeCopy, holdType);
-			StdOut.println("Hold is removed from your record successfuly!");
+			if (trlApp.controller.removeHold(activeCopy, holdType))
+			{
+				StdOut.println("Hold is removed from your record successfuly!");
+			}
+			else
+			{
+				StdOut.println("There is no hold to remove!");
+			}
+
 		}
 		else
 		{
-			StdOut.println("\n** Fine is not paid! Please go back and pay the fine **");
+			StdOut.println("\n** There is no hold to remove! **");
 		}
 
 		notValidChoice = true;
